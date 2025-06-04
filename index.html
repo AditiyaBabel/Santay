@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Break Time Assa</title>
+  <link rel="icon" href="favicon.jpg" type="image/jpg">
+
+  <style>
+    :root {
+      --primary: #000;
+      --secondary: #111;
+      --text: #f2f2f2;
+      --accent: #ff80ab;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--primary);
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    /* Loading Screen */
+    #loading {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: fadeOut 1s ease 2.5s forwards;
+    }
+
+    #loading h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .dots::after {
+      content: '';
+      display: inline-block;
+      width: 1em;
+      animation: dots 1.5s steps(3, end) infinite;
+      text-align: left;
+    }
+
+    @keyframes dots {
+      0% { content: ''; }
+      33% { content: '.'; }
+      66% { content: '..'; }
+      100% { content: '...'; }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    /* Stars Background */
+    #main {
+      display: none;
+      animation: fadeIn 1.5s ease forwards;
+      background-image: radial-gradient(#ffffff11 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: stars 10s linear infinite;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    @keyframes stars {
+      from { background-position: 0 0; }
+      to { background-position: 100px 100px; }
+    }
+
+    .card {
+      background-color: var(--secondary);
+      border-radius: 16px;
+      padding: 40px 30px;
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(255, 128, 171, 0.4);
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    p {
+      font-size: 15px;
+      color: #ccc;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .btn {
+      background-color: var(--accent);
+      color: #000;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #ff5c99;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal-box {
+      background-color: #1b1b1b;
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 380px;
+      text-align: center;
+    }
+
+    .fun-buttons {
+      display: none;
+      margin-top: 20px;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .fun-btn {
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #555;
+      border-radius: 8px;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s ease;
+    }
+
+    .fun-btn:hover {
+      background-color: #444;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 🎵 Chill Music -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/25/audio_436ce5003e.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ⏳ Loading Screen -->
+<div id="loading">
+  <h2>Memuat pesan untuk Assa<span class="dots"></span></h2>
+  <p style="font-size:14px; color:#888;">🧠 Otak loading... tunggu sebentar yaa~</p>
+</div>
+
+<!-- 🌌 Main Content -->
+<div id="main">
+  <div class="card">
+    <h1>🌙 Haloo Assaa 🌙</h1>
+    <p>Kepala Assa lagi mikir banyak hal yaaa....</p>
+    <button class="btn" onclick="openModal()">Klik buat rehat sejenak ☕</button>
+
+    <div class="fun-buttons" id="funSection">
+      <button class="fun-btn" onclick="showMessage('Mi ayam dan pod detected! 🍜💨')">Starter Pack Assa</button>
+      <button class="fun-btn" onclick="showMessage('Otak overload detected... Mode chill aktif 💤')">Mode Overthinking</button>
+      <button class="fun-btn" onclick="showMessage('Assa... tarik napas, buang perlahan. Tenang, kamu hebat kok! 🌬️')">Tarik Napas</button>
+      <button class="fun-btn" onclick="showMessage('Kalo Assa butuh temen ngerusuh, Adit ada kok (secara virtual 😄)')">Ngerusuh</button>
+    </div>
+  </div>
+</div>
+
+<!-- 💬 Modal -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <p id="modalText">...</p>
+    <button class="btn" onclick="nextMessage()">Lanjut ➡️</button>
+  </div>
+</div>
+
+<script>
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("main").style.display = "flex";
+    }, 2500);
+  });
+
+  const messages = [
+    "Assaaa~ 🌙",
+    "Harii ni Assa mikirin apaa lagii? Banyak yaaaa? Hehehe",
+    "Kadang kayak otak tuh mau meledak karena segalanya hal Assa pikirin dalam waktu bersamaan 🤯",
+    "Tapi Asssa itu kerenn, Asssa peduli, Asssa mikir dalam.",
+    "Cuma kadang... Asssa juga butuh diem bentar.",
+    "Nafas dulu, pelan. Nggak harus mikirin semuanya sekarang juga 🌬️",
+    "Kalau dunia berisik, boleh kok tutup mata, sambil bayangin mi ayam dan pod favorit Assa 🍜💨",
+    "Adit cuma mau bilang... Assa jangan terlalu keras sama diri sendiri yaaa~",
+    "Kalau Assa butuh tempat sharing atau rehat bentar, Adit ada kok (beneran 😌)",
+    "Semangattt Assa, semoga sehat selalu dan dilancarkan rejekinya ✨"
+  ];
+
+  let index = 0;
+
+  function openModal() {
+    index = 0;
+    document.getElementById("modalText").textContent = messages[index];
+    document.getElementById("modal").style.display = "flex";
+  }
+
+  function nextMessage() {
+    index++;
+    if (index < messages.length) {
+      document.getElementById("modalText").textContent = messages[index];
+    } else {
+      document.getElementById("modal").style.display = "none";
+      document.getElementById("funSection").style.display = "flex";
+    }
+  }
+
+  function showMessage(text) {
+    document.getElementById("modalText").textContent = text;
+    document.getElementById("modal").style.display = "flex";
+  }
+</script>
+
+</body>
+</html>
